@@ -12,8 +12,13 @@ public class SetterInjectedController {
 
     private GreetingService greetingService;
 
+    public SetterInjectedController(){
+        System.out.println("SetterInjectedController.init called");
+    }
+
     @Autowired
     public void setGreetingService(GreetingService greetingService) {
+        System.out.println("SetterInjectedController.setGreetingService just called");
         this.greetingService = greetingService;
     }
 

@@ -8,6 +8,10 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class MyController {
 
+    public MyController(){
+        System.out.println("MyController created");
+    }
+
     public String sayHello(){
         System.out.println("Hello World!!!");
 
