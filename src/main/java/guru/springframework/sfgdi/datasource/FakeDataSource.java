@@ -9,11 +9,24 @@ public class FakeDataSource {
     private String password;
     private String jdbcurl;
 
+    public FakeDataSource() {
+        System.out.println("FakeDataSource.<init> NO ARGS constructor called");
+    }
+
+    public FakeDataSource(String username, String password, String jdbcurl) {
+        this.username = username;
+        this.password = password;
+        this.jdbcurl = jdbcurl;
+        System.out.println("FakeDataSource.<init> as " + this.toString());
+
+    }
+
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
+        System.out.println("FakeDataSource.setUsername: " + username);
         this.username = username;
     }
 
@@ -31,5 +44,14 @@ public class FakeDataSource {
 
     public void setJdbcurl(String jdbcurl) {
         this.jdbcurl = jdbcurl;
+    }
+
+    @Override
+    public String toString() {
+        return "FakeDataSource{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", jdbcurl='" + jdbcurl + '\'' +
+                '}';
     }
 }

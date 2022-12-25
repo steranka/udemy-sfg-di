@@ -1,5 +1,6 @@
 package guru.springframework.sfgdi;
 
+import guru.springframework.sfgdi.config.GreetingServiceConfig;
 import guru.springframework.sfgdi.controllers.*;
 import guru.springframework.sfgdi.datasource.FakeDataSource;
 import guru.springframework.sfgdi.services.PrototypeBean;
@@ -13,6 +14,11 @@ public class SfgDiApplication {
 
 	public static void main(String[] args) {
 		ApplicationContext ctx = SpringApplication.run(SfgDiApplication.class, args);
+		GreetingServiceConfig gsc = new GreetingServiceConfig();
+		FakeDataSource fds3 = gsc.fakeDataSource("Joe", "John", "Pat");
+
+		FakeDataSource fds2 = new FakeDataSource("John","Joe", "pat");
+
 
 		PetController petController = ctx.getBean("petController", PetController.class);
 		System.out.println("--- The Best Pet is ---");
