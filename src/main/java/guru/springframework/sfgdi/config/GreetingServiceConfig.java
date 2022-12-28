@@ -6,13 +6,19 @@ import guru.springframework.sfgdi.datasource.FakeDataSource;
 import guru.springframework.sfgdi.repositories.EnglishGreetingRepository;
 import guru.springframework.sfgdi.repositories.EnglishGreetingRepositoryImpl;
 import guru.springframework.sfgdi.services.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
+import org.springframework.core.env.AbstractEnvironment;
+import org.springframework.core.env.Environment;
+import org.springframework.core.env.MapPropertySource;
 
 /**
  * Created by jt on 2/20/21.
  */
 @PropertySource("classpath:datasource.properties")
+@PropertySource("classpath:file1.properties")
+@PropertySource("classpath:file2.properties")
 @ImportResource("classpath:sfgdi-config.xml")
 @Configuration
 public class GreetingServiceConfig {
@@ -27,6 +33,12 @@ public class GreetingServiceConfig {
         fakeDataSource.setJdbcurl(jdbcurl);
         System.out.println("fakeDataSource Bean created as " + fakeDataSource.toString());
         return fakeDataSource;
+    }
+
+    @Bean
+    public Object whichProp(@Value("${foo.bar}") String fooBar, @Value("${foo.baz}") String fooBaz){
+        System.out.println("Looks like foo.bar prop is set to " + fooBar  + ", foo.baz=" + fooBaz);
+        return new Object();
     }
 
     @Bean
@@ -77,5 +89,17 @@ public class GreetingServiceConfig {
     @Bean
     SetterInjectedGreetingService setterInjectedGreetingService(){
         return new SetterInjectedGreetingService();
+    }
+
+    @Bean
+    public Object DisplayPropertiesEnvironment(Environment environment) {
+        AbstractEnvironment env = (AbstractEnvironment) environment;
+        for (org.springframework.core.env.PropertySource<?> source : env.getPropertySources()) {
+            if (source instanceof MapPropertySource) {
+                MapPropertySource mapPropertySource = (MapPropertySource) source;
+                System.out.println("Prop: " + source.getName() + "=" + mapPropertySource.getSource());
+            }
+        }
+        return new Object();
     }
 }

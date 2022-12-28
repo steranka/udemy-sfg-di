@@ -22,6 +22,8 @@ public class FakeDataSource {
     }
 
     public String getUsername() {
+        String val = System.getProperty("guru.username");
+        System.out.println("getUsername: System Prop guru.username=" + val + ", val=" + username);
         return username;
     }
 
